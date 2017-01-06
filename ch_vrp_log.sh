@@ -4,7 +4,6 @@ black_list="test.sh ch_vrp_log.sh"
 
 all_files=$(ls -1t *.*)
 
-#echo "yangbin"
 #echo $all_files
 for file in $all_files
 	do

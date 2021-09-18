@@ -1,0 +1,1 @@
+export filename=567;gcc $filename.c -std=c99 -fsanitize=address -fsanitize=undefined -fsanitize=leak -fsanitize-recover=all -fno-omit-frame-pointer -fno-stack-protector -fsanitize=leak -o $filename; time ./$filename

@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <string.h>
+#include <assert.h>
+#include <stdlib.h>
+#include <math.h>
+
+/**
+ * Return an array of arrays of size *returnSize.
+ * The sizes of the arrays are returned as *returnColumnSizes array.
+ * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().
+ */
+int cmp(const void* a, const void* b)
+{
+    int* ap = *(int**)a;
+    int* bp = *(int**)b;
+    if (ap[0] == bp[0]) {
+        return (ap[1] > bp[1]);
+    }
+    return (ap[0] > bp[0]);
+
+}
+int** merge(int** intervals, int intervalsSize, int* intervalsColSize, int* returnSize, int** returnColumnSizes){
+    int** res = (int**)malloc(sizeof(int*) * intervalsSize);
+    for (int i = 0; i < intervalsSize; i++) {
+        res[i] = (int*)malloc(sizeof(int) * intervalsColSize[i]);
+    }
+
+    qsort(intervals, intervalsSize, sizeof(int) * (intervalsColSize[0]), cmp);
+
+    int i, k;
+    for (i = 0, k = -1; i < intervalsSize; i++) {
+        if (k == -1 || intervals[i][0] > res[k][1]) {
+            res[k] = intervals[i];
+            ++k;
+        } else {
+            res[k][1] = fmax(intervals[i][1], res[k][1]);
+        }
+    }
+    *returnSize = k + 1;
+    *returnColumnSizes = intervalsColSize; 
+    return res;
+}
+
+int main()
+{
+
+    return 0;
+}
